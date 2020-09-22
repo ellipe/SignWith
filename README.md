@@ -1,11 +1,13 @@
 # SignWith
 
-## Build Setup
+## Build and Run Setup
 
 ```bash
 # install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+# Build
+$ yarn build
 
+# Production
+$ yarn start
