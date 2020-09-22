@@ -55,7 +55,7 @@ export default {
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 2em;
 }
 
 .profile-picture {

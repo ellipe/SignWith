@@ -35,7 +35,14 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+
+  proxy: { 
+    '/put': { 
+      target: 'https://postman-echo.com' 
+    } 
+  },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {

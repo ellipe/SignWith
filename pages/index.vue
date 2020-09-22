@@ -5,6 +5,14 @@
         <h2>Sign Up</h2>
         <p>Please fill the following information</p>
       </div>
+      <v-snackbar color="success" v-model="message" timeout="5000">
+        You did it!
+        <template v-slot:action>
+          <v-btn color="white" text @click="message = false">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
       <v-form ref="form" lazy-validation>
         <v-text-field
           background-color="#EEEEEE"
@@ -36,7 +44,7 @@
           required
         ></v-select>
         <em>* Required fields</em>
-        <v-btn large color="primary" block>
+        <v-btn large color="primary" block @click="submit">
           Send
         </v-btn>
       </v-form>
@@ -54,14 +62,14 @@ export default {
       rules: {
         nameRules: [
           v => !!v || "Name is required",
-          v => v.length >= 10 || "Name must have at least 10 characters"
         ],
         emailRules: [
           v =>
             /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
             "E-mail must be valid"
         ]
-      }
+      },
+      message: false
     };
   },
   computed: {
@@ -78,6 +86,21 @@ export default {
     return {
       title: "Sign Up"
     };
+  },
+  methods: {
+    submit() {
+      if (this.$refs.form.validate()) {
+        this.$axios
+          .put("/put", {
+            name: this.name,
+            email: this.email,
+            gender: this.gender
+          })
+          .then(response => {
+            this.message = true;
+          });
+      }
+    }
   }
 };
 </script>
