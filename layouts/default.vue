@@ -24,7 +24,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
-      clipped-left=
+      clipped-left
       fixed
       app
     >
@@ -38,7 +38,7 @@
       </v-container>
     </v-main>
     <v-footer
-      :absolute="!fixed"
+      absolute
       app
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
@@ -50,9 +50,7 @@
 export default {
   data () {
     return {
-      clipped: false,
       drawer: false,
-      fixed: false,
       links: [
         {
           title: 'Sign Up',
@@ -63,9 +61,6 @@ export default {
           to: '/profile'
         }
       ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
       title: 'Demo'
     }
   }
