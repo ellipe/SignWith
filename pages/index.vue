@@ -3,30 +3,31 @@
     <v-col cols="12" sm="10" md="10">
       <div>
         <h2>Sign Up</h2>
-        <p>Please fill the following form</p>
+        <p>Please fill the following information</p>
       </div>
       <v-form ref="form" lazy-validation>
         <v-text-field
-          class="custom"
+          background-color="#EEEEEE"
           outlined
           v-model="name"
-          :counter="10"
-          :rules="[v => !!v || 'Name is required']"
+          :rules="rules.nameRules"
           placeholder="Name *"
           required
         ></v-text-field>
 
         <v-text-field
           class="custom"
+          background-color="#EEEEEE"
           outlined
           v-model="email"
-          :rules="[v => !!v || 'Email is required']"
+          :rules="rules.emailRules"
           placeholder="E-mail"
           required
         ></v-text-field>
 
         <v-select
           class="custom"
+          background-color="#EEEEEE"
           outlined
           v-model="gender"
           :items="options"
@@ -35,7 +36,7 @@
           required
         ></v-select>
         <em>* Required fields</em>
-        <v-btn color="primary" class="mr-4" block>
+        <v-btn large color="primary" block>
           Send
         </v-btn>
       </v-form>
@@ -49,7 +50,18 @@ export default {
     return {
       name: "",
       email: "",
-      gender: ""
+      gender: "",
+      rules: {
+        nameRules: [
+          v => !!v || "Name is required",
+          v => v.length >= 10 || "Name must have at least 10 characters"
+        ],
+        emailRules: [
+          v =>
+            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+            "E-mail must be valid"
+        ]
+      }
     };
   },
   computed: {
@@ -62,6 +74,7 @@ export default {
     }
   },
   head() {
+    this.$store.commit("setToolbarTitle", "Sign Up");
     return {
       title: "Sign Up"
     };
@@ -69,8 +82,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.custom .v-text-field__slot input {
-  color: #00f !important;
+<style>
+.v-input__slot > fieldset {
+  border: none;
 }
 </style>

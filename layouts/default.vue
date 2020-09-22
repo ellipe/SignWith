@@ -1,35 +1,26 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      clipped
-      fixed
-      app
-    >
+    <v-navigation-drawer v-model="drawer" clipped app>
       <v-list>
         <v-list-item
-          v-for="(item, i) in links"
+          v-for="(link, i) in links"
           :key="i"
-          :to="item.to"
+          :to="link.to"
           router
           exact
         >
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{ link.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title v-text="link.title" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      clipped-left
-      fixed
-      app
-    >
+    <v-app-bar clipped-left fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title v-text="toolbarTitle" />
       <v-spacer />
     </v-app-bar>
     <v-main>
@@ -37,10 +28,7 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-footer
-      absolute
-      app
-    >
+    <v-footer absolute app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -48,21 +36,25 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       drawer: false,
       links: [
         {
-          title: 'Sign Up',
-          to: '/'
+          title: "Sign Up",
+          to: "/"
         },
         {
-          title: 'Profile',
-          to: '/profile'
+          title: "Profile",
+          to: "/profile"
         }
-      ],
-      title: 'Demo'
+      ]
+    };
+  },
+  computed: {
+    toolbarTitle() {
+      return this.$store.state.title;
     }
   }
-}
+};
 </script>
